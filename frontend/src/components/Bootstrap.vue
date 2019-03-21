@@ -3,11 +3,15 @@
     <h1>{{ msg }}</h1>
     <h5>REST service call are easy to do with Vue.js, if you know how to do it.</h5>
     <p></p>
-    <h6><b-badge variant="primary"> Let´s go!</b-badge> Call a Spring Boot REST backend service, by clicking a button:</h6>
+    <h6><b-badge variant="primary"> Let´s go!</b-badge>
+      Call a Spring Boot REST backend service, by clicking a button:</h6>
     <p></p>
-    <b-btn variant="success" @click="callRestService(); showResponse=true" id="btnCallHello">/hello (GET)</b-btn>
+    <b-btn variant="success" @click="callRestService();
+    showResponse=true" id="btnCallHello">/hello (GET)</b-btn>
     <p></p>
-    <h4>Backend response: <b-alert :show="showResponse" dismissible @dismissed="showResponse=false">{{ response }}</b-alert></h4>
+    <h4>Backend response:
+      <b-alert :show="showResponse" dismissible @dismissed="showResponse=false">{{ response }}
+      </b-alert></h4>
 
     <b-btn v-b-toggle.collapse1>Show Response details</b-btn>
     <p></p>
@@ -20,17 +24,20 @@
           <b-card>Statustext: {{ httpStatusText }}</b-card>
         </b-collapse>
 
-        <b-btn v-b-toggle.collapse2_inner size="sm" id="btnHttpHeaders" variant="warning">HTTP Headers</b-btn>
+        <b-btn v-b-toggle.collapse2_inner size="sm" id="btnHttpHeaders" variant="warning">
+          HTTP Headers
+        </b-btn>
         <b-collapse id=collapse2_inner class="mt-2">
 
-          <p v-if="headers && headers.length">
-            <li v-for="header of headers">
-            <b-card>Header: {{ header.valueOf() }}</b-card>
+          <ol v-if="headers && headers.length">
+            <li v-for="header of headers" v-bind:key="header">
+              <b-card>Header: {{ header.valueOf() }}</b-card>
             </li>
-          </p>
+          </ol>
         </b-collapse>
 
-        <b-btn v-b-toggle.collapse3_inner size="sm" variant="danger">Full Request configuration</b-btn>
+        <b-btn v-b-toggle.collapse3_inner size="sm" variant="danger">
+          Full Request configuration</b-btn>
         <b-collapse id=collapse3_inner class="mt-2">
           <p class="card-text">Config: {{ fullResponse.config }} </p>
         </b-collapse>
@@ -38,17 +45,19 @@
     </b-collapse>
 
 
-    <b-tooltip target="btnHttpHeaders" title="You should always know your HTTP Headers!"></b-tooltip>
+    <b-tooltip target="btnHttpHeaders" title="You should always know your HTTP Headers!">
+    </b-tooltip>
 
   </div>
 </template>
 
 <script>
 // import axios from 'axios'
-import {AXIOS} from './http-common'
+import { AXIOS } from './http-common';
+
 export default {
   name: 'bootstrap',
-  data () {
+  data() {
     return {
       msg: 'HowTo call REST-Services:',
       showResponse: false,
@@ -56,34 +65,34 @@ export default {
       fullResponse: {
         config: {
           foo: '',
-          bar: ''
-        }
+          bar: '',
+        },
       },
       httpStatusCode: '',
       httpStatusText: '',
-      headers: ['Noting here atm. Did you call the Service?'],
-      errors: []
-    }
+      headers: ['Nothing here atm. Did you call the Service?'],
+      errors: [],
+    };
   },
   methods: {
     // Fetches posts when the component is created.
-    callRestService () {
-      AXIOS.get(`/hello`)
-        .then(response => {
+    callRestService() {
+      AXIOS.get('/hello')
+        .then((response) => {
           // JSON responses are automatically parsed.
-          this.response = response.data
-          console.log(response.data)
-          this.httpStatusCode = response.status
-          this.httpStatusText = response.statusText
-          this.headers = response.headers
-          this.fullResponse = response
+          this.response = response.data;
+          console.log(response.data);
+          this.httpStatusCode = response.status;
+          this.httpStatusText = response.statusText;
+          this.headers = response.headers;
+          this.fullResponse = response;
         })
-        .catch(e => {
-          this.errors.push(e)
-        })
-    }
-  }
-}
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+  },
+};
 </script>
 
 

@@ -11,32 +11,33 @@
 </template>
 
 <script>
-  // import axios from 'axios'
-  import {AXIOS} from './http-common'
-  export default {
-    name: 'service',
-    data () {
-      return {
-        msg: 'HowTo call REST-Services:',
-        response: [],
-        errors: []
-      }
+// import axios from 'axios'
+import { AXIOS } from './http-common';
+
+export default {
+  name: 'service',
+  data() {
+    return {
+      msg: 'HowTo call REST-Services:',
+      response: [],
+      errors: [],
+    };
+  },
+  methods: {
+    // Fetches posts when the component is created.
+    callRestService() {
+      AXIOS.get('/hello')
+        .then((response) => {
+          // JSON responses are automatically parsed.
+          this.response = response.data;
+          console.log(response.data);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
-    methods: {
-      // Fetches posts when the component is created.
-      callRestService () {
-        AXIOS.get(`/hello`)
-          .then(response => {
-            // JSON responses are automatically parsed.
-            this.response = response.data
-            console.log(response.data)
-          })
-          .catch(e => {
-            this.errors.push(e)
-          })
-      }
-    }
-  }
+  },
+};
 </script>
 
 
