@@ -4,6 +4,7 @@ import Hello from '@/components/Hello.vue';
 import Service from '@/components/Service.vue';
 import Bootstrap from '@/components/Bootstrap.vue';
 import User from '@/components/User.vue';
+import Test from '@/components/Test.vue';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/user',
       name: 'User',
       component: User,
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: Test,
     },
   ],
 });
